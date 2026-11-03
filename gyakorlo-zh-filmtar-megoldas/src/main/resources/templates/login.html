@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{title.login})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<h1 th:text="#{title.login}"></h1>
+
+<!-- 3-3: a Spring Security a /login?error es /login?logout cimre iranyit vissza -->
+<p class="error" th:if="${param.error}" th:text="#{login.error}"></p>
+<p th:if="${param.logout}" th:text="#{login.logout}"></p>
+
+<form th:action="@{/login}" method="post" class="card">
+    <!-- A mezok neve kotelezoen username es password -->
+    <label for="username" th:text="#{login.username}"></label>
+    <input type="text" id="username" name="username">
+
+    <label for="password" th:text="#{login.password}"></label>
+    <input type="password" id="password" name="password">
+
+    <p><button type="submit" th:text="#{login.submit}"></button></p>
+</form>
+
+<p><a th:href="@{/register}" th:text="#{login.register}"></a></p>
+</body>
+</html>

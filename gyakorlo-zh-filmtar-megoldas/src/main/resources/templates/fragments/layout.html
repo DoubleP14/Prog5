@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<!-- 4: ujrahasznalhato reszek, a tobbi oldal ezeket emeli be -->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <nav>
+        <a sec:authorize="isAuthenticated()" th:href="@{/movies}" th:text="#{header.movies}"></a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/stats}" th:text="#{header.stats}"></a>
+    </nav>
+    <div>
+        <!-- 8: a nyelvvalto az aktualis oldalra mutat -->
+        <a href="?lang=hu">HU</a>
+        <a href="?lang=en">EN</a>
+        <th:block sec:authorize="isAuthenticated()">
+            <span sec:authentication="name"></span>
+            <!-- A kijelentkezes POST. A th:action miatt kerul bele a CSRF token. -->
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" th:text="#{header.logout}"></button>
+            </form>
+        </th:block>
+    </div>
+</header>
+</body>
+</html>

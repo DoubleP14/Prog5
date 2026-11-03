@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${movie.id == null ? #messages.msg('title.movie.new') : #messages.msg('title.movie.edit')})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<!-- 6-3: ugyanaz a sablon uj filmhez es szerkeszteshez -->
+<h1 th:text="${movie.id == null} ? #{title.movie.new} : #{title.movie.edit}"></h1>
+
+<form method="post" class="card" th:object="${movie}"
+      th:action="${movie.id == null} ? @{/movies} : @{/movies/{id}(id=${movie.id})}">
+
+    <div th:replace="~{fragments/form-fields :: field('title', #{movie.title}, 'text')}"></div>
+    <div th:replace="~{fragments/form-fields :: field('director', #{movie.director}, 'text')}"></div>
+    <div th:replace="~{fragments/form-fields :: field('releaseYear', #{movie.releaseYear}, 'number')}"></div>
+
+    <p>
+        <button type="submit" th:text="#{movie.save}"></button>
+        <a class="button" th:href="@{/movies}" th:text="#{movie.cancel}"></a>
+    </p>
+</form>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head(#{title.movie.list})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<div class="top-bar">
+    <h1 th:text="#{title.movie.list}"></h1>
+    <a class="button" th:href="@{/movies/new}" th:text="#{movie.new}"></a>
+</div>
+
+<!-- 5-2 -->
+<table>
+    <thead>
+    <tr>
+        <th sec:authorize="hasRole('ADMIN')" th:text="#{movie.id}"></th>
+        <th th:text="#{movie.title}"></th>
+        <th th:text="#{movie.director}"></th>
+        <th th:text="#{movie.releaseYear}"></th>
+        <th th:text="#{movie.owner}"></th>
+        <th th:text="#{movie.actions}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${movies.isEmpty()}">
+        <td colspan="6" th:text="#{movie.list.empty}"></td>
+    </tr>
+    <tr th:each="movie : ${movies}">
+        <td sec:authorize="hasRole('ADMIN')" th:text="${movie.id}"></td>
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.director}"></td>
+        <td th:text="${movie.releaseYear}"></td>
+        <td th:text="${movie.owner}"></td>
+        <td class="actions">
+            <a class="button" th:href="@{/movies/{id}/edit(id=${movie.id})}" th:text="#{movie.edit}"></a>
+            <!-- 7-1: a torles POST, ezert kell ra form. A szoveg data- attributumbol jon. -->
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/movies/{id}/delete(id=${movie.id})}" method="post"
+                  th:data-confirm="#{movie.delete.confirm}" onsubmit="return confirm(this.dataset.confirm);">
+                <button type="submit" class="danger" th:text="#{movie.delete}"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{title.stats})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<h1 th:text="#{title.stats}"></h1>
+<!-- 10-1: a {0} helyere kerul a szam -->
+<p th:text="#{stats.count(${count})}"></p>
+</body>
+</html>

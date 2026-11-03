@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: filmtar
+  profiles:
+    active: mock # 1
+  messages:
+    fallback-to-system-locale: false
+server:
+  port: 8095 # 1

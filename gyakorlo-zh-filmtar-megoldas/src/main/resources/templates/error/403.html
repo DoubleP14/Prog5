@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<!-- 10-2: a Spring Boot a hibakod alapjan az error/403 sablont keresi -->
+<head th:replace="~{fragments/layout :: head(#{title.forbidden})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<h1 th:text="#{title.forbidden}"></h1>
+<p th:text="#{forbidden.text}"></p>
+<a class="button" th:href="@{/movies}" th:text="#{forbidden.back}"></a>
+</body>
+</html>

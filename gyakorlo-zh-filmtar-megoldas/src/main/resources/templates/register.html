@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{title.register})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<h1 th:text="#{title.register}"></h1>
+
+<!-- 9-1 -->
+<form method="post" class="card" th:action="@{/register}" th:object="${registerForm}">
+    <div th:replace="~{fragments/form-fields :: field('username', #{login.username}, 'text')}"></div>
+    <div th:replace="~{fragments/form-fields :: field('password', #{login.password}, 'password')}"></div>
+    <div th:replace="~{fragments/form-fields :: field('confirmPassword', #{register.confirmPassword}, 'password')}"></div>
+
+    <p><button type="submit" th:text="#{register.submit}"></button></p>
+</form>
+</body>
+</html>

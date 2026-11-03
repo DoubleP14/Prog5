@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<!-- 6-2: egy urlapmezo cimkevel es hibauzenettel. A __${name}__ eloszor behelyettesiti a mezo nevet. -->
+<div th:fragment="field(name,label,type)">
+    <label th:for="${name}" th:text="${label}"></label>
+    <input th:type="${type}" th:field="*{__${name}__}"/>
+    <span class="error" th:errors="*{__${name}__}"></span>
+</div>
+</body>
+</html>
